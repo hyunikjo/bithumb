@@ -274,6 +274,7 @@ def run_scheduler():
     schedule.every().day.at("09:00").do(execute_trade)
     schedule.every().day.at("15:00").do(execute_trade)
     schedule.every().day.at("21:00").do(execute_trade)
+    schedule.every().hour.at(":00").do(execute_trade)
     
     # 스케줄 루프 실행
     while True:
