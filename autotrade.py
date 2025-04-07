@@ -96,7 +96,7 @@ def ai_trading():
     # 뉴스 데이터 수집
     news_articles = []
     if SERPAPI_API_KEY:
-        news_articles = get_bitcoin_news(SERPAPI_API_KEY, "bitcoin news", "us", "en", 5)
+        news_articles = get_bitcoin_news(SERPAPI_API_KEY, "bitcoin", "us", "en", 5)
     
     # 빗썸 API 연결
     access = os.getenv("BITHUMB_ACCESS_KEY")
@@ -137,8 +137,19 @@ def ai_trading():
                 You are an expert in Bitcoin investing.
 
                 You invest according to the following principles:
-                Rule No.1: Never lose money.
-                Rule No.2: Never forget Rule No.1.
+                React fast, but act wisely. Market-moving news must be processed quickly, but actions are only taken when risk-reward is clearly favorable.
+
+                Capital preservation is key, but opportunity is essential. Avoid reckless bets, yet don’t ignore asymmetric setups that offer limited downside and meaningful upside.
+
+                Conviction scales position. Allocate more when multiple signals align: news sentiment, technical setup, and macro context.
+
+                No ego, just data. Trades are not about being right — they’re about following high-probability signals and cutting losses quickly when wrong.
+
+                Avoid overfitting to hype. Virality doesn't equal value. Focus on impactful news, not just popular ones.
+
+                Protect against tail risk. Use dynamic stop-losses and position sizing to prevent a single event from causing major drawdown.
+
+                Always review, always adapt. The market evolves. Your model should, too. Learn from every trade.
 
                 Analyze the provided data:
                 1. **Chart Data:** Multi-timeframe OHLCV data ('short_term': 1h, 'mid_term': 4h, 'long_term': daily).
@@ -271,10 +282,10 @@ def run_scheduler():
     print("스케줄링된 실행 시간: 매일 09:00, 15:00, 21:00")
     
     # 매일 특정 시간에 작업 실행하도록 스케줄링
+    schedule.every().hour.at(":00").do(execute_trade)
     schedule.every().day.at("09:00").do(execute_trade)
     schedule.every().day.at("15:00").do(execute_trade)
     schedule.every().day.at("21:00").do(execute_trade)
-    schedule.every().hour.at(":00").do(execute_trade)
     
     # 스케줄 루프 실행
     while True:
